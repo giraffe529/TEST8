@@ -4,12 +4,12 @@
 const items = [
   {
     title: "愛宕神社",
-    src: "atago/1.JPG",
+    src: "atago/1.jpg",
     page: "shrines/atago.html"
   },
   {
     title: "宮地嶽神宮",
-    src: "miyajidake/1.JPG",
+    src: "miyajidake/1.jpg",
     page: "shrines/miyajidake.html"
   },
   {
@@ -19,22 +19,22 @@ const items = [
   },
   {
     title: "高住神社",
-    src: "takasumi/1.JPG",
+    src: "takasumi/1.jpg",
     page: "shrines/takasumi.html"
   },
   {
     title: "高祖神社",
-    src: "takaso/1.JPG",
+    src: "takaso/1.jpg",
     page: "shrines/takaso.html"
   },
   {
     title: "宗像大社",
-    src: "munakata/1.JPG",
+    src: "munakata/1.jpg",
     page: "shrines/munakata.html"
   },
   {
     title: "太宰府天満宮",
-    src: "dazaifu/1.JPG",
+    src: "dazaifu/1.jpg",
     page: "shrines/dazaifu.html"
   }
 ];
