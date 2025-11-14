@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>宗像大社 - 音写真</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+
+<header>
+  <div class="wrap toolbar">
+    <h1>宗像大社</h1>
+    <div class="spacer"></div>
+    <a href="../index.html" class="btn">← トップへ</a>
+  </div>
+</header>
+
+<main class="wrap"><div id="gallery" class="masonry"></div></main>
+
+<footer><small>© 2025 音写真プロジェクト</small></footer>
+
+<script>
+const items = [
+  { img: "../munakata/1.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/2.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/3.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/4.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/5.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/6.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/7.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/8.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/9.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/10.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/11.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"},
+  { img: "../munakata/12.jpg", audio: "../audio/munakata/JS9.mp3" ,caption: "福岡県宗像市田島2331"}
+];
+
+const gallery = document.getElementById("gallery");
+
+// ------- ライトボックスを1回だけ生成 -------
+const overlay = document.createElement("div");
+overlay.className = "lightbox-overlay";
+overlay.innerHTML = `
+  <div class="lightbox-inner">
+    <img class="lightbox-image" src="" alt="">
+    <div class="lightbox-caption"></div>
+  </div>
+`;
+document.body.appendChild(overlay);
+
+const overlayImg = overlay.querySelector(".lightbox-image");
+const overlayCaption = overlay.querySelector(".lightbox-caption");
+
+function openLightbox(src, captionText) {
+  overlayImg.src = src;
+  overlayCaption.textContent = captionText || "";
+  overlay.classList.add("active");
+}
+
+// どこをクリックしても閉じる
+overlay.addEventListener("click", () => {
+  overlay.classList.remove("active");
+});
+
+// ================================
+// ギャラリー生成
+// ================================
+items.forEach(item => {
+  const fig = document.createElement("figure");
+  fig.className = "tile";
+
+  const img = document.createElement("img");
+  img.src = item.img;
+
+  const audio = new Audio(item.audio);
+
+  const badge = document.createElement("div");
+  badge.className = "badge";
+
+  const wave = document.createElement("div");
+  wave.className = "wave";
+  wave.innerHTML = "<span></span><span></span><span></span>";
+
+  // --- PC: hoverで再生 ---
+  fig.addEventListener("mouseenter", () => {
+    audio.currentTime = 0;
+    audio.play();
+    fig.classList.add("playing");
+  });
+
+  fig.addEventListener("mouseleave", () => {
+    audio.pause();
+    fig.classList.remove("playing");
+  });
+
+  // --- スマホ: タッチで再生 / 離して停止 ---
+  fig.addEventListener("touchstart", () => {
+    audio.currentTime = 0;
+    audio.play();
+    fig.classList.add("playing");
+  }, { passive: true });
+
+  fig.addEventListener("touchend", () => {
+    audio.pause();
+    fig.classList.remove("playing");
+  });
+
+  fig.addEventListener("touchcancel", () => {
+    audio.pause();
+    fig.classList.remove("playing");
+  });
+
+  // --- クリックで拡大＋キャプション表示 ---
+  fig.addEventListener("click", (e) => {
+    e.preventDefault();
+    openLightbox(item.img, item.caption);
+  });
+
+  fig.appendChild(img);
+  fig.appendChild(badge);
+  fig.appendChild(wave);
+  gallery.appendChild(fig);
+
+  img.onload = () => {
+    fig.classList.add("loaded");
+  };
+});
+</script>
+</body>
+</html>
